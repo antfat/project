@@ -1,0 +1,7 @@
+# Игнорируем лишнее
+node_modules/
+dist/
+logs_*.txt
+*.zip
+.DS_Store
+.env

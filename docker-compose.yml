@@ -1,0 +1,45 @@
+version: "3.9" # версия синтаксиса docker-compose
+
+services:
+  # Основное Node.js приложение (backend)
+  renter:
+    build:
+      context: ./core        # путь к папке core, где лежат Dockerfile и код
+      dockerfile: Dockerfile # используем prod Dockerfile
+    container_name: renter   # имя контейнера (удобно для docker ps)
+    ports:
+      - "${APP_PORT}:3000"   # пробрасываем порт 3000 наружу (используем из .env)
+    environment:             # переменные окружения для prod
+      NODE_ENV: production
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    restart: unless-stopped  # контейнер перезапускается при сбоях/рестарте сервера
+
+  # MySQL база данных
+  db_service:
+    image: mysql:8.0         # официальный образ MySQL 8
+    container_name: renter_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} # пароль root
+      MYSQL_DATABASE: ${DB_NAME}               # имя БД
+      MYSQL_USER: ${DB_USER}                   # обычный пользователь
+      MYSQL_PASSWORD: ${DB_PASSWORD}           # пароль пользователя
+    ports:
+      - "3306:3306"          # проброс mysql-порта для подключения IDE
+    restart: unless-stopped
+
+  # phpMyAdmin — графический клиент для работы с MySQL
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: renter_pma
+    environment:
+      PMA_HOST: db_service   # указываем сервис БД
+      PMA_USER: ${DB_USER}   # логин пользователя MySQL
+      PMA_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${PMA_PORT}:80"     # проброс порта phpMyAdmin наружу
+    depends_on:
+      - db_service           # запуск только после старта БД
+    restart: unless-stopped

@@ -1,0 +1,21 @@
+# Базовый образ Node.js 20 (тот же, что и для продакшена)
+FROM node:20-bullseye
+
+# Рабочая директория в контейнере
+WORKDIR /usr/src/renter
+
+# Копируем package.json и package-lock.json (для установки зависимостей)
+COPY package*.json ./
+
+# Устанавливаем все зависимости (включая devDependencies, например nodemon)
+RUN npm install
+
+# Копируем исходный код
+COPY . .
+
+# Открываем порт 3000
+EXPOSE 3000
+
+# Запуск приложения в dev-режиме через nodemon (автоперезапуск при изменениях)
+CMD ["npm", "run", "dev"]
+

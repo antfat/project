@@ -1,0 +1,46 @@
+// Переменные SASS
+$bg: #f7f7f9;
+$accent: #0ea5e9;
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: $bg;
+}
+
+nav {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+
+  a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+
+    &.active {
+      border-bottom: 2px solid $accent;
+    }
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    border: 1px solid #e5e7eb;
+    padding: 6px 8px;
+  }
+}
+
+button {
+  margin: 0 4px;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $accent;
+  }
+}

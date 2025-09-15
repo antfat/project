@@ -1,0 +1,13 @@
+# Node.js
+NODE_ENV=development       # среда разработки
+APP_PORT=3000              # порт Node.js приложения
+  
+  # MySQL
+DB_HOST=db_service         # хост базы данных (имя сервиса в docker-compose)
+DB_USER=renter_admin       # пользователь MySQL
+DB_PASSWORD=secret         # пароль пользователя
+DB_NAME=db                 # имя базы данных
+DB_ROOT_PASSWORD=root_secret # пароль root (для phpMyAdmin и отладки)
+  
+  # phpMyAdmin
+PMA_PORT=8080              # порт для доступа к phpMyAdmin (http://localhost:8080)

@@ -1,0 +1,25 @@
+{
+  "name": "renter",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev-core\" \"npm run dev-app\" \"npm run electron\"",
+    "dev-core": "cd core && nodemon src/index.js",
+    "dev-app": "cd app && vite",
+    "electron": "cd app && electron .",
+    "build-app": "cd app && vite build",
+    "build-core": "cd core && node src/index.js",
+    "prod": "cd core && node src/index.js",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^9.11.1",
+    "eslint-plugin-react": "^7.35.0",
+    "prettier": "^3.3.3"
+  }
+}
